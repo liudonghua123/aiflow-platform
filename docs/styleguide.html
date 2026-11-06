@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AIFlow 样式指南 — TinyBuddy UI</title>
+<style>
+  :root {
+    --bg: 246 246 249; --surface: 255 255 255; --elevated: 255 255 255;
+    --line: 233 233 240; --ink: 23 23 29; --muted: 106 107 118; --faint: 154 155 166;
+    --brand: 109 74 255; --brand-soft: 240 236 255; --brand-ink: 75 47 208;
+    --ok: 31 157 114; --warn: 194 117 31; --danger: 209 73 91;
+    --r-sm: 6px; --r-md: 8px; --r-control: 14px; --r-container: 18px; --r-modal: 24px;
+    --shadow-soft: 0 1px 2px rgba(16,16,24,.04), 0 8px 24px -12px rgba(16,16,24,.12);
+    --shadow-lift: 0 2px 4px rgba(16,16,24,.04), 0 16px 40px -16px rgba(16,16,24,.2);
+    --e-fade: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  [data-theme="dark"] {
+    --bg: 12 12 17; --surface: 20 20 27; --elevated: 25 25 33;
+    --line: 38 38 47; --ink: 236 236 242; --muted: 155 156 168; --faint: 111 112 124;
+    --brand: 139 109 255; --brand-soft: 33 26 61; --brand-ink: 196 181 255;
+    --ok: 62 207 154; --warn: 226 164 90; --danger: 242 112 127;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: rgb(var(--bg)); color: rgb(var(--ink));
+    font-family: -apple-system, BlinkMacSystemFont, Inter, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-size: 14px; line-height: 1.5; padding: 32px 20px 80px;
+  }
+  .page { max-width: 1024px; margin: 0 auto; }
+  header.top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+  h1 { font-size: 26px; font-weight: 650; letter-spacing: -0.01em; }
+  .sub { color: rgb(var(--muted)); font-size: 13px; margin-top: 4px; }
+  .theme-toggle {
+    height: 36px; padding: 0 16px; border-radius: var(--r-control);
+    border: 1px solid rgb(var(--line)); background: rgb(var(--surface));
+    color: rgb(var(--ink)); font-size: 13px; cursor: pointer;
+    transition: background 150ms var(--e-fade);
+  }
+  .theme-toggle:hover { background: rgb(var(--elevated)); }
+  section { margin-top: 36px; }
+  h2 { font-size: 16px; font-weight: 600; padding-bottom: 8px; border-bottom: 1px solid rgb(var(--line)); margin-bottom: 16px; }
+  .card {
+    background: rgb(var(--surface)); border: 1px solid rgb(var(--line));
+    border-radius: var(--r-container); box-shadow: var(--shadow-soft); padding: 20px;
+  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+  /* 色板 */
+  .swatch { border-radius: var(--r-md); border: 1px solid rgb(var(--line)); padding: 12px; }
+  .swatch .chip-color { height: 44px; border-radius: var(--r-sm); margin-bottom: 8px; border: 1px solid rgb(var(--line) / 0.6); }
+  .swatch .name { font-size: 12.5px; font-weight: 600; }
+  .swatch .val { font-size: 11px; color: rgb(var(--faint)); font-variant-numeric: tabular-nums; }
+
+  /* 按钮 */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    height: 36px; padding: 0 14px; border-radius: var(--r-control);
+    border: 1px solid transparent; font-size: 13.5px; font-weight: 500; cursor: pointer;
+    transition: all 150ms var(--e-fade);
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: rgb(var(--brand)); color: #fff; }
+  .btn-primary:hover { filter: brightness(1.1); }
+  .btn-secondary { background: rgb(var(--surface)); border-color: rgb(var(--line)); color: rgb(var(--ink)); }
+  .btn-secondary:hover { background: rgb(var(--elevated)); border-color: rgb(var(--faint) / 0.6); }
+  .btn-ghost { background: none; color: rgb(var(--muted)); }
+  .btn-ghost:hover { background: rgb(var(--elevated)); color: rgb(var(--ink)); }
+  .btn-danger { background: rgb(var(--danger) / 0.1); border-color: rgb(var(--danger) / 0.25); color: rgb(var(--danger)); }
+  .btn-danger:hover { background: rgb(var(--danger) / 0.16); }
+  .btn-sm { height: 28px; padding: 0 10px; font-size: 11.5px; }
+
+  /* 输入 */
+  .field { display: flex; flex-direction: column; gap: 6px; max-width: 280px; }
+  .field-label { font-size: 12px; font-weight: 500; color: rgb(var(--faint)); }
+  .input {
+    height: 36px; padding: 0 12px; border-radius: var(--r-control);
+    border: 1px solid rgb(var(--line)); background: rgb(var(--surface));
+    color: rgb(var(--ink)); font-size: 13.5px; outline: none;
+    transition: box-shadow 150ms var(--e-fade), border-color 150ms var(--e-fade);
+  }
+  .input:focus { border-color: rgb(var(--brand) / 0.5); box-shadow: 0 0 0 4px rgb(var(--brand) / 0.14); }
+  .input.error { border-color: rgb(var(--danger)); }
+  .input.error:focus { box-shadow: 0 0 0 4px rgb(var(--danger) / 0.12); }
+
+  /* chip / pill */
+  .pill { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 999px; font-size: 11px; font-weight: 500; }
+  .pill-positive { background: rgb(var(--ok) / 0.1); color: rgb(var(--ok)); }
+  .pill-warning { background: rgb(var(--warn) / 0.12); color: rgb(var(--warn)); }
+  .pill-negative { background: rgb(var(--danger) / 0.1); color: rgb(var(--danger)); }
+  .pill-accent { background: rgb(var(--brand-soft) / 0.6); color: rgb(var(--brand-ink)); border: 1px solid rgb(var(--brand) / 0.2); }
+  .pill-neutral { background: rgb(var(--elevated)); color: rgb(var(--muted)); border: 1px solid rgb(var(--line)); }
+
+  /* switch */
+  .switch { position: relative; width: 38px; height: 22px; border-radius: 999px; background: rgb(var(--line)); cursor: pointer; transition: background 150ms var(--e-fade); border: none; }
+  .switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 999px; background: #fff; transition: transform 150ms var(--e-fade); box-shadow: 0 1px 2px rgba(0,0,0,.15); }
+  .switch.on { background: rgb(var(--brand)); }
+  .switch.on::after { transform: translateX(16px); }
+
+  /* 图标按钮 */
+  .icon-btn { width: 36px; height: 36px; border-radius: var(--r-control); display: grid; place-items: center; border: 1px solid transparent; background: none; color: rgb(var(--muted)); cursor: pointer; transition: all 150ms var(--e-fade); }
+  .icon-btn:hover { background: rgb(var(--elevated)); color: rgb(var(--ink)); }
+
+  /* 状态点 */
+  .status-dot { position: relative; width: 8px; height: 8px; border-radius: 999px; display: inline-block; }
+  .status-dot-ok { background: rgb(var(--ok)); }
+  .status-dot-warn { background: rgb(var(--warn)); }
+  .status-dot-danger { background: rgb(var(--danger)); }
+  .status-dot-idle { background: rgb(var(--faint)); }
+  .status-dot-ok::after { content: ''; position: absolute; inset: -2px; border-radius: 999px; border: 1.5px solid rgb(var(--ok)); animation: ping-soft 1s cubic-bezier(0,0,.2,1) infinite; }
+  @keyframes ping-soft { 75%, 100% { transform: scale(2); opacity: 0; } }
+
+  /* 页内 Tabs（底槽式） */
+  .tabs { display: inline-flex; gap: 2px; padding: 4px; border: 1px solid rgb(var(--line)); border-radius: var(--r-control); background: rgb(var(--elevated)); }
+  .tab-item { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 10px; border: none; background: none; font-size: 13px; font-weight: 500; color: rgb(var(--muted)); cursor: pointer; transition: all 150ms var(--e-fade); }
+  .tab-item:hover { color: rgb(var(--ink)); }
+  .tab-item.active { background: rgb(var(--surface)); color: rgb(var(--ink)); box-shadow: 0 1px 2px rgba(16,16,24,.06); }
+  .tab-count { font-size: 11px; color: rgb(var(--faint)); }
+
+  /* Switch 尺寸对齐规范 38×22 */
+
+  /* 圆角展示 */
+  .radius-box { display: grid; place-items: center; height: 72px; background: rgb(var(--elevated)); border: 1px solid rgb(var(--line)); font-size: 11.5px; color: rgb(var(--muted)); }
+
+  /* 字阶 */
+  .type-row { display: flex; align-items: baseline; gap: 16px; padding: 8px 0; border-bottom: 1px dashed rgb(var(--line) / 0.7); }
+  .type-row:last-child { border-bottom: none; }
+  .type-meta { width: 150px; flex: none; font-size: 11px; color: rgb(var(--faint)); font-variant-numeric: tabular-nums; }
+
+  /* modal 预览 */
+  .modal-demo { border-radius: var(--r-modal); border: 1px solid rgb(var(--line)); background: rgb(var(--surface)); box-shadow: var(--shadow-lift); max-width: 380px; }
+  .modal-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 14px; border-bottom: 1px solid rgb(var(--line)); font-weight: 600; font-size: 16px; }
+  .modal-body { padding: 16px 20px; color: rgb(var(--muted)); font-size: 13.5px; }
+  .modal-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 14px 20px; border-top: 1px solid rgb(var(--line)); background: rgb(var(--elevated) / 0.6); border-radius: 0 0 var(--r-modal) var(--r-modal); }
+
+  /* toast */
+  .toast { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--r-container); background: rgb(var(--surface) / 0.95); border: 1px solid rgb(var(--line)); box-shadow: var(--shadow-lift); font-size: 13.5px; backdrop-filter: blur(8px); }
+  .toast.error { border-color: rgb(var(--danger) / 0.3); color: rgb(var(--danger)); }
+
+  /* 空状态（EmptyState） */
+  .empty { text-align: center; padding: 56px 16px; border: 1px dashed rgb(var(--line)); border-radius: var(--r-container); background: rgb(var(--surface)); }
+  .empty-icon { width: 48px; height: 48px; margin: 0 auto 12px; border-radius: var(--r-container); display: grid; place-items: center; background: rgb(var(--brand-soft)); color: rgb(var(--brand)); font-size: 22px; }
+  .empty-title { font-size: 15px; font-weight: 600; color: rgb(var(--ink)); }
+
+  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid rgb(var(--line)); color: rgb(var(--faint)); font-size: 11.5px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div>
+      <h1>AIFlow 样式指南</h1>
+      <div class="sub">TinyBuddy UI v0.2.1 — 颜色令牌 · 14/18/24 圆角 · 边框优先 · sm/lg 双断点</div>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">切换主题</button>
+  </header>
+
+  <section>
+    <h2>1 · 颜色令牌（R G B 三元组）</h2>
+    <div class="card">
+      <div class="grid" id="palette"></div>
+      <p class="sub" style="margin-top:12px">所有颜色通过 <code>rgb(var(--token) / alpha)</code> 引用；--faint 仅装饰不作正文（对比度 2.76）。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2 · 字号阶梯（0.5px 步进）</h2>
+    <div class="card">
+      <div class="type-row"><span class="type-meta">display · 26px · 650</span><span style="font-size:26px;font-weight:650">请假审批流</span></div>
+      <div class="type-row"><span class="type-meta">title · 16px · 600</span><span style="font-size:16px;font-weight:600">审批中心</span></div>
+      <div class="type-row"><span class="type-meta">body · 15px · 450</span><span style="font-size:15px">正文示例：发起人提交申请后进入条件分支判断。</span></div>
+      <div class="type-row"><span class="type-meta">small · 12.5px · 450</span><span style="font-size:12.5px;color:rgb(var(--muted))">次要说明文字</span></div>
+      <div class="type-row"><span class="type-meta">caption · 11px · 500</span><span style="font-size:11px;color:rgb(var(--faint));letter-spacing:.05em">分组标签 · 时间戳</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>3 · 圆角三档 + 胶囊</h2>
+    <div class="card">
+      <div class="grid">
+        <div class="radius-box" style="border-radius:14px">control · 14px</div>
+        <div class="radius-box" style="border-radius:18px">container · 18px</div>
+        <div class="radius-box" style="border-radius:24px">modal · 24px</div>
+        <div class="radius-box" style="border-radius:999px">full · 999px</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>4 · 按钮（四态）</h2>
+    <div class="card">
+      <div class="row">
+        <button class="btn btn-primary">发起申请</button>
+        <button class="btn btn-secondary">次级操作</button>
+        <button class="btn btn-ghost">幽灵按钮</button>
+        <button class="btn btn-danger">删除流程</button>
+        <button class="btn btn-primary btn-sm">小型</button>
+        <button class="btn btn-primary" disabled style="opacity:.5;pointer-events:none">禁用</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>5 · 表单（4px 光晕焦点）</h2>
+    <div class="card">
+      <div class="row" style="align-items:flex-start;gap:24px">
+        <div class="field">
+          <label class="field-label">用户名</label>
+          <input class="input" placeholder="聚焦试试 → 4px 品牌光晕" />
+        </div>
+        <div class="field">
+          <label class="field-label">必填项</label>
+          <input class="input error" value="错误态" />
+        </div>
+        <div class="field">
+          <label class="field-label">开关 Switch</label>
+          <div class="row" style="height:36px">
+            <button class="switch on" onclick="this.classList.toggle('on')" aria-label="switch"></button>
+            <span class="sub">150ms</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>6 · Chip / 状态点 / 图标按钮 / Tabs</h2>
+    <div class="card">
+      <div class="row">
+        <span class="pill pill-positive">已发布</span>
+        <span class="pill pill-warning">草稿</span>
+        <span class="pill pill-negative">已驳回</span>
+        <span class="pill pill-accent">审批中</span>
+        <span class="pill pill-neutral">已归档</span>
+      </div>
+      <div class="row" style="margin-top:14px">
+        <span class="status-dot status-dot-ok"></span><span class="sub">在线（ping 外圈）</span>
+        <span class="status-dot status-dot-warn"></span><span class="sub">待处理</span>
+        <span class="status-dot status-dot-danger"></span><span class="sub">异常</span>
+        <span class="status-dot status-dot-idle"></span><span class="sub">空闲</span>
+        <span style="width:16px"></span>
+        <button class="icon-btn" aria-label="设置">⚙</button>
+        <button class="icon-btn" aria-label="搜索">⌕</button>
+      </div>
+      <div class="row" style="margin-top:14px">
+        <div class="tabs">
+          <button class="tab-item active">待办 <span class="tab-count">3</span></button>
+          <button class="tab-item">已办</button>
+          <button class="tab-item">抄送我</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>7 · Modal（桌面居中 / 24px）</h2>
+    <div class="card">
+      <div class="modal-demo">
+        <div class="modal-head">删除流程 <span style="color:rgb(var(--faint));cursor:pointer">×</span></div>
+        <div class="modal-body">确定要删除「请假审批」吗？此操作不可撤销，关联的表单与实例将保留。</div>
+        <div class="modal-foot">
+          <button class="btn btn-secondary btn-sm">取消</button>
+          <button class="btn btn-danger btn-sm">确认删除</button>
+        </div>
+      </div>
+      <p class="sub" style="margin-top:12px">移动端同一组件变为底部抽屉：顶部圆角 24px + drawer-up 280ms。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>8 · Toast / 空状态</h2>
+    <div class="card">
+      <div class="row" style="align-items:flex-start">
+        <div class="toast">✓ 已保存</div>
+        <div class="toast error">✗ 保存失败，请重试</div>
+        <div class="empty" style="flex:1;min-width:200px">
+          <div class="empty-icon">◇</div>
+          <div class="empty-title">还没有流程，点击「发起申请」创建第一个</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    AIFlow UI · TinyBuddy UI 规范 v0.2.1 · 实现见 web/src/styles.css · 令牌见 docs/design-tokens.json
+  </footer>
+</div>
+
+<script>
+  const tokens = [
+    ['bg', '246 246 249'], ['surface', '255 255 255'], ['elevated', '255 255 255'],
+    ['line', '233 233 240'], ['ink', '23 23 29'], ['muted', '106 107 118'],
+    ['faint', '154 155 166'], ['brand', '109 74 255'], ['brand-soft', '240 236 255'],
+    ['brand-ink', '75 47 208'], ['ok', '31 157 114'], ['warn', '194 117 31'], ['danger', '209 73 91'],
+  ];
+  document.getElementById('palette').innerHTML = tokens.map(([name, rgb]) => `
+    <div class="swatch">
+      <div class="chip-color" style="background:rgb(${rgb})"></div>
+      <div class="name">--${name}</div>
+      <div class="val">${rgb}</div>
+    </div>`).join('');
+
+  function toggleTheme() {
+    const root = document.documentElement;
+    root.setAttribute('data-theme', root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+  }
+</script>
+</body>
+</html>

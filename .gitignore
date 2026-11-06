@@ -1,0 +1,26 @@
+# dependencies
+node_modules/
+
+# build output
+web/dist/
+
+# runtime data (auto-seeded on first start; contains credentials)
+data/
+
+# logs
+*.log
+server.log
+
+# local tooling / working files
+.workbuddy/
+.taste-skill/
+.shots/
+shots/
+
+# env files
+.env
+.env.*
+
+# os
+Thumbs.db
+.DS_Store

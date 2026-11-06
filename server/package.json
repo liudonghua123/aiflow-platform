@@ -1,0 +1,20 @@
+{
+  "name": "aiflow-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AI 低代码平台后端：RESTful + MCP + Webhook + RBAC + 组织架构 + 多协议认证",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^3.24.1"
+  }
+}
